@@ -77,10 +77,17 @@ public final class VersionCompat {
         undeadMobsPre1205.add(getEntityTypeByName("zombified_piglin"));
         if (currentVersion.compareTo(v1_16) >= 0)
             undeadMobsPre1205.add(EntityType.valueOf("ZOGLIN"));
-        if (currentVersion.compareTo(v1_21_3) <= 0)
-            HEALTH_ATTR = Attribute.valueOf("GENERIC_MAX_HEALTH");
-        else
+        if (currentVersion.compareTo(v1_21_3) <= 0) {
+            try {
+                Method valueOf = Attribute.class.getMethod("valueOf", String.class);
+                HEALTH_ATTR = (Attribute) valueOf.invoke(null, "GENERIC_MAX_HEALTH");
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else {
             HEALTH_ATTR = Attribute.MAX_HEALTH;
+        }
     }
 
     @NotNull

@@ -11,7 +11,7 @@ plugins {
 
 
 group = "com.clanjhoo"
-version = "1.0.1"
+version = "1.0.2-SNAPSHOT"
 description = "Anyone can become a vampire, but do you want to? During daytime vampires cower from sunlight. During the night the humans reach for their holy water and wooden stakes as the vampires roam the lands with inhuman strength, speed and levitation-powers. Driven by their endless bloodlust, they devour all living in their way."
 
 ext.set("projectName", gradle.extra["projectName"].toString())
@@ -54,9 +54,9 @@ repositories {
         }
     }
     maven {
-        url = uri("https://repo.md-5.net/content/repositories/releases/")
+        url = uri("https://repo.md-5.net/content/groups/public/")
         content {
-            includeGroup("LibsDisguises")
+            includeGroup("me.libraryaddict.disguises")
         }
     }
     maven {

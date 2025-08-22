@@ -167,7 +167,7 @@ public class SunUtil {
 				|| type == Material.COCOA || name.contains("GLASS_PANE") || name.contains("SIGN")
 				|| name.contains("TORCH") || name.contains("CHAIN") || name.contains("TRIPWIRE"))
 			opacity = 0.1;
-		else if (type.isTransparent() || type == Material.WATER || type == Material.ICE
+		else if (type == Material.WATER || type == Material.ICE
 				|| type == Material.COBWEB || name.contains("GLASS"))
 			opacity = 0.25;
 		else if (name.contains("LEAVES") || name.contains("PLANT") || name.contains("BANNER") || name.contains("FENCE"))
