@@ -4,18 +4,18 @@ generatePOMPlugin = { id = "ru.vyarus.java-lib", version.ref = "generatePOMGradl
 spotBugsPlugin = { id = "com.github.spotbugs", version.ref = "spotBugsGradlePlugin" }
 
 [versions]
-shadowGradlePlugin = "9.0.0-beta6"
+shadowGradlePlugin = "9.2.2"
 generatePOMGradlePlugin = "3.0.0"
-spotBugsGradlePlugin = "6.1.2"
+spotBugsGradlePlugin = "6.4.4"
 userdevGradlePlugin = "2.0.0-beta.14"
 
-bukkitAPI = "1.21.8-R0.1-SNAPSHOT"
+bukkitAPI = "1.21.10-R0.1-SNAPSHOT"
 dbHandler = "4.0.4"
 acfPaper = "0.5.1-SNAPSHOT"
 worldEdit = "7.4.0-SNAPSHOT"
 worldGuard = "7.1.0-SNAPSHOT"
-libsDisguises = "11.0.7"
-packetEvents = "2.9.4"
+libsDisguises = "11.0.11"
+packetEvents = "2.10.0"
 placeholderAPI = "2.11.6"
 vaultAPI = "1.7.1"
 werewolves = "1.7.2"
