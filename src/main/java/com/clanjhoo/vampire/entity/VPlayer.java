@@ -22,6 +22,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Creature;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.RayTraceResult;
@@ -775,7 +776,8 @@ public class VPlayer {
             entityUtil.spawnBats(me, numberOfBats);
             plugin.debugLog(Level.INFO, "Bats spawned!");
             messageKey = CommandMessageKeys.BATUSI_TOGGLED_ON;
-            this.hadFlight = me.getAllowFlight();
+            if (!this.isBatusi())
+                this.hadFlight = me.getAllowFlight();
             plugin.batEnabled.put(me.getUniqueId(), true);
         }
         if (plugin.isDisguiseEnabled()) {
@@ -857,13 +859,16 @@ public class VPlayer {
     public void updateBatusiOnTeleport() {
         if (this.isBatusi()) {
             AtomicInteger aliveBats = new AtomicInteger(0);
-            plugin.batmap.get(uuid).forEach((le) -> {
-                if (le.isDead())
-                    return;
-                le.remove();
-                plugin.bats.remove(le);
-                aliveBats.getAndIncrement();
-            });
+            List<LivingEntity> bats = plugin.batmap.get(uuid);
+            if (bats != null) {
+                plugin.batmap.get(uuid).forEach((le) -> {
+                    if (le.isDead())
+                        return;
+                    le.remove();
+                    plugin.bats.remove(le);
+                    aliveBats.getAndIncrement();
+                });
+            }
             plugin.batmap.remove(uuid);
             disableBatusi(true);
             Bukkit.getScheduler().runTaskLater(
