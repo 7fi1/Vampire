@@ -21,7 +21,7 @@ maven.pom {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
         vendor = JvmVendorSpec.ORACLE
     }
 }
@@ -54,7 +54,7 @@ repositories {
         }
     }
     maven {
-        url = uri("https://repo.md-5.net/content/groups/public/")
+        url = uri("https://mvn.lib.co.nz/public/")
         content {
             includeGroup("me.libraryaddict.disguises")
         }
@@ -116,10 +116,9 @@ dependencies {
     compileOnly(libs.sk89q.worldguard.bukkit) {
         isTransitive = false
     }
-    //compileOnly(libs.libraryaddict.libsdisguises) {
-    //    isTransitive = false
-    //}
-    compileOnly(files("D:\\Users\\Mowser\\MineLibs\\LibsDisguises-10.0.44-SNAPSHOT-1520.jar"))
+    compileOnly(libs.libraryaddict.libsdisguises) {
+        isTransitive = false
+    }
     compileOnly(libs.packetevents.api) {
         isTransitive = false
     }

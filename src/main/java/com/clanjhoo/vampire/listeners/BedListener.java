@@ -12,6 +12,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import org.bukkit.GameRule;
+import org.bukkit.GameRules;
 import org.bukkit.World;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
@@ -125,27 +126,17 @@ public class BedListener implements Listener {
             sleepers.add(player);
         }
         long worldPlayerCount = world.getPlayers().stream().filter((p) -> EntityUtil.isPlayer(p) && !p.isSleepingIgnored()).count();
-        Integer percentage = 100;
-        if (plugin.getServerVersion().compareTo(new SemVer(1, 17)) >= 0) {
-            percentage = player.getWorld().getGameRuleValue(GameRule.PLAYERS_SLEEPING_PERCENTAGE);
-            if (percentage == null) {
-                percentage = player.getWorld().getGameRuleDefault(GameRule.PLAYERS_SLEEPING_PERCENTAGE);
-            }
-            if (percentage == null) {
-                percentage = 100;
-            }
-        }
+        int percentage = 100;
+        if (plugin.getServerVersion().compareTo(new SemVer(1, 17)) >= 0)
+            percentage = player.getWorld().getGameRuleValue(GameRules.PLAYERS_SLEEPING_PERCENTAGE);
 
         long sleepingPlayers = sleepers.stream().filter((p) -> p.isValid() && p.isOnline() && !p.isDead() && p.getWorld().equals(world)).count();
 
         // Enough people sleeping
         if (time < 12000 && sleepingPlayers >= (percentage / 100.0) * worldPlayerCount) {
             // ... and the daylight cycle is enabled ...
-            Boolean doDayLightCycle = player.getWorld().getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE);
-            if (doDayLightCycle == null) {
-                doDayLightCycle = player.getWorld().getGameRuleDefault(GameRule.DO_DAYLIGHT_CYCLE);
-            }
-            if (!Boolean.FALSE.equals(doDayLightCycle)) {
+            boolean advanceTime = player.getWorld().getGameRuleValue(GameRules.ADVANCE_TIME);
+            if (advanceTime) {
                 // ... we set time to night
                 //player.getWorld().setTime(11834);
                 world.setTime(12000);
